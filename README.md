@@ -46,9 +46,9 @@ Kiel University, Kiel, Germany
  - The pipeline outputs for the 5 timed examples, including all the in between steps and the generated graphs.
  - The monitoring data required to launch the pipeline without having to run the static and/or dynamic analyses before hand.
 
-### Bin
+### Res
 
-This is where the guided example output will go.
+Contains the configuration file for the collector.
 
 ## Replication
 
@@ -61,6 +61,8 @@ Note: it is important to do the static analysis first, as to not skew the static
 From the root, run the static analyzer.
 
 ```
+mkdir bin
+mkdir bin/uxsim-static
 time python3 tools/pyparse/src/pyparse/pyparse.py \
  -i UXsim/uxsim \
  -o bin/uxsim-static \
@@ -74,9 +76,10 @@ as well as annotate every function/method definition with `@instrument`
   
 ```
 cd UXsim
-../scripts/instrument.sh
+../scripts/instrument.sh .
 # make sure you have the right dependencies.
-pip install .
+python3 -m build .
+pip install dist/uxsim*
 cd ..
 ```
 
@@ -92,13 +95,13 @@ From another terminal, launch the collector.
 ./scripts/collector.sh
 ```
 
-Now run the entrypoint.
+From the original entrypoint, run the entrypoint.
 
 ```
 python3 python/UXsim-test.py
 ```
 
-Kieker logs have been create in `/tmp`. Transfer them to the bin directory.
+The collector can be stopped. Kieker logs have been created in `/tmp`. Transfer them to the bin directory.
 ```
 ll /tmp/kieker*
 cp -r /tmp/kieker* ./bin/
@@ -111,3 +114,4 @@ Now, run the pipeline.
 ```
 ./scripts/combined-model.sh bin/kieker* bin/uxsim-static combined-uxsim
 ```
+
