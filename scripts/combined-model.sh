@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo -e "${GREEN}✔ Directories ready.${RESET}"
+echo -e "${GREEN}Directories ready.${RESET}"
 
 # Run DAR
 echo -e "${GREEN}▶ Running DAR...${RESET}"
@@ -109,41 +109,18 @@ fi
 echo -e "${GREEN}▶ Generating the flat graph with fdp...${RESET}"
 cd "$MVIS_COMBINED_DIR"
 time fdp -Tpdf *-component.dot -o flat_fdp.pdf -v
-if [ $? -ne 0 ]; then
-  echo -e "${RED}DOT conversion failed. Exiting.${RESET}"
-  exit 1
-fi
-cd ../..
 
 # Grouped fdp
 echo -e "${GREEN}▶ Generating the grouped graph with fdp...${RESET}"
-cd "$MVIS_COMBINED_DIR"
 time fdp -Tpdf output.dot -o grouped_fdp.pdf -v
-if [ $? -ne 0 ]; then
-  echo -e "${RED}DOT conversion failed. Exiting.${RESET}"
-  exit 1
-fi
-cd ../..
 
 # Flat dot
 echo -e "${GREEN}▶ Generating the flat graph with dot...${RESET}"
-cd "$MVIS_COMBINED_DIR"
 time dot -Tpdf *-component.dot -o flat_dot.pdf -v
-if [ $? -ne 0 ]; then
-  echo -e "${RED}DOT conversion failed. Exiting.${RESET}"
-  exit 1
-fi
-cd ../..
 
 # Grouped dot
 echo -e "${GREEN}▶ Generating the grouped graph with dot...${RESET}"
-cd "$MVIS_COMBINED_DIR"
 time dot -Tpdf output.dot -o flat_fdp.pdf -v
-if [ $? -ne 0 ]; then
-  echo -e "${RED}DOT conversion failed. Exiting.${RESET}"
-  exit 1
-fi
-cd ../..
 
 
 echo -e "${GREEN}Done! Output PDF ready at: $MVIS_COMBINED_DIR/output.pdf${RESET}"
