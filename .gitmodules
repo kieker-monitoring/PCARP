@@ -1,0 +1,6 @@
+[submodule "UXsim"]
+        path = UXsim
+        url = https://github.com/toruseo/UXsim.git
+[submodule "pyparse"]
+        path = tools/pyparse
+        url = https://github.com/Misrobody/pyparse.git

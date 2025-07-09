@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: otkt
+Version: 1.0.0
+Summary: Opentelemetry to Kieker translator for Python
+Home-page: https://github.com/kieker-monitoring/OtktDSL
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+
+UNKNOWN
+
