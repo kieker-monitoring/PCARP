@@ -1,4 +1,4 @@
-# static and dynamic analysis of python software replication-package
+# Static and Dynamic Analysis of Python Software replication-package
 
 This is the replication package for the following paper:
 Static and Dynamic Analysis of Python Software
@@ -16,7 +16,6 @@ Kiel University, Kiel, Germany
 Wilhelm Hasselbring
 <hasselbring@email.uni-kiel.de>
 Kiel University, Kiel, Germany
-
 
 ## Package structure
 
@@ -46,10 +45,6 @@ Kiel University, Kiel, Germany
  - The pipeline outputs for the 5 timed examples, including all the in between steps and the generated graphs.
  - The monitoring data required to launch the pipeline without having to run the static and/or dynamic analyses before hand.
 
-### Res
-
-Contains the configuration file for the collector.
-
 ## Replication
 
 The following wil walk you through the complete pipeline using the UXsim application as an example. You can use the same methodology to replicate the other examples.
@@ -61,8 +56,6 @@ Note: it is important to do the static analysis first, as to not skew the static
 From the root, run the static analyzer.
 
 ```
-mkdir bin
-mkdir bin/uxsim-static
 time python3 tools/pyparse/src/pyparse/pyparse.py \
  -i UXsim/uxsim \
  -o bin/uxsim-static \
@@ -83,15 +76,10 @@ pip install dist/uxsim*
 cd ..
 ```
 
-Build the Otkt utilities (collector and python module).
+Build the Otkt utilities (collector and python module) and launch the collector.
 ```
 cd otkt-gen
 make
-cd ..
-```
-
-Launch the collector.
-```
 make run
 ```
 
