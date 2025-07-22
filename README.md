@@ -27,7 +27,7 @@ Note: it is important to do the static analysis first, as to not skew the static
 From the root, run the static analyzer.
 ```
 time python3 tools/pyparse/src/pyparse/pyparse.py \
- -i helloWorld/helloWorld \
+ -i hello/helloWorld \
  -o bin/static \
  -m both -e
 ```
@@ -60,17 +60,12 @@ From another terminal, run the entrypoint.
 ```
 python3 python/UXsim-test.py
 ```
-
-The collector can be stopped. Kieker logs have been created in `/tmp`. Transfer them to the bin directory.
-```
-ll /tmp/kieker*
-cp -r /tmp/kieker* ./bin/
-```
+The collector can be stopped. Kieker logs have been created in `/tmp`.
 
 ## Running the pipeline
 
 Now, run the pipeline.
 ```
-./scripts/pipeline.sh bin/kieker* bin/static combined-helloWorld
+./scripts/pipeline.sh /tmp/kieker* bin/static combined-helloWorld
 ```
 
