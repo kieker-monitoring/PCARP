@@ -1,6 +1,3 @@
-[submodule "helloWorld"]
-        path = helloWorld
-        url = https://github.com/Misrobody/helloWorld.git
 [submodule "pyparse"]
         path = tools/pyparse
         url = https://github.com/Misrobody/pyparse.git
