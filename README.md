@@ -19,18 +19,17 @@ Kiel University, Kiel, Germany
 
 ## Replication
 
-The following wil walk you through the complete pipeline using the UXsim application as an example.
+The following wil walk you through the complete pipeline using the helloWorld application as an example.
 Note: it is important to do the static analysis first, as to not skew the static analysis results with the added code for the dynamic analysis intrumentation.
 
 ### Static Analysis
 
 From the root, run the static analyzer.
-
 ```
 time python3 tools/pyparse/src/pyparse/pyparse.py \
- -i UXsim/uxsim \
- -o bin/uxsim-static \
- -m both -e -v
+ -i helloWorld/helloWorld \
+ -o bin/static \
+ -m both -e
 ```
 
 ### Dynamic analysis
@@ -71,8 +70,7 @@ cp -r /tmp/kieker* ./bin/
 ## Running the pipeline
 
 Now, run the pipeline.
-
 ```
-./scripts/pipeline.sh bin/kieker* bin/uxsim-static combined-uxsim
+./scripts/pipeline.sh bin/kieker* bin/static combined-helloWorld
 ```
 
