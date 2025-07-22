@@ -64,22 +64,26 @@ time python3 tools/pyparse/src/pyparse/pyparse.py \
 
 ### Dynamic analysis
 
-Instrument and install UXsim. The following will prepend `from otkt.tools.instrument import instrument` to all Python files
-as well as annotate every function/method definition with `@instrument`
+Build and install the Otkt utilities (collector and python module).
+```
+cd otkt-gen
+make
+cd ..
+```
+
+Instrument and install UXsim.
   
 ```
 cd UXsim
-python3 ../tools/Otkt-Instrument/instrument -i .
-# make sure you have the right dependencies.
+../scripts/instrument.sh
 python3 -m build .
 pip install dist/uxsim*
 cd ..
 ```
 
-Build the Otkt utilities (collector and python module) and launch the collector.
+Launch the collector.
 ```
 cd otkt-gen
-make
 make run
 ```
 
@@ -99,6 +103,6 @@ cp -r /tmp/kieker* ./bin/
 Now, run the pipeline.
 
 ```
-./scripts/combined-model.sh bin/kieker* bin/uxsim-static combined-uxsim
+./scripts/pipeline.sh bin/kieker* bin/uxsim-static combined-uxsim
 ```
 
