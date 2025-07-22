@@ -4,3 +4,9 @@
 [submodule "pyparse"]
         path = tools/pyparse
         url = https://github.com/Misrobody/pyparse.git
+[submodule "grouped-graph-visualizer"]
+        path = tools/grouped-graph-visualizer
+        url = https://github.com/Misrobody/grouped-graph-visualizer.git
+[submodule "Otkt-Instrument"]
+        path = tools/Otkt-Instrument
+        url = https://github.com/Misrobody/Otkt-Instrument.git

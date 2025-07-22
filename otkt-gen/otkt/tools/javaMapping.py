@@ -1,4 +1,6 @@
 import inspect
+import types
+from typing import get_args
 
 def signature(func):
     return f'{scope(func)} {return_type(func)} {package(func)}.{fclass(func)}.{fname(func)}({params(func)})'
@@ -8,7 +10,6 @@ def scope(func):
         return "private"
     elif func.__name__.startswith("_"):
         return "protected"
-
     return "public"
 
 def return_type(func):
@@ -61,9 +62,20 @@ python_to_java = {
     "datetime": "Date"
 }
 
-def convert(type):
-    if type == None:
-        return python_to_java["None"]
-    if type.__name__ not in python_to_java:
-        return "Object"
-    return python_to_java[type.__name__]
+def convert(t):
+    if isinstance(t, str):
+        return python_to_java.get(t, t)
+
+    if t is None:
+        return python_to_java.get("None", "Object")
+
+    # Handle UnionType (like int | str)
+    if isinstance(t, types.UnionType):
+        return " | ".join(convert(arg) for arg in get_args(t))
+
+    # Handle types without __name__
+    type_name = getattr(t, '__name__', None)
+    if type_name is None:
+        return str(t)  # fallback: str representation
+
+    return python_to_java.get(type_name, "Object")

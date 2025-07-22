@@ -76,7 +76,7 @@ as well as annotate every function/method definition with `@instrument`
   
 ```
 cd UXsim
-../scripts/instrument.sh .
+python3 ../tools/Otkt-Instrument/instrument -i .
 # make sure you have the right dependencies.
 python3 -m build .
 pip install dist/uxsim*
@@ -90,13 +90,12 @@ make
 cd ..
 ```
 
-From another terminal, launch the collector.
+Launch the collector.
 ```
-./scripts/collector.sh
+make run
 ```
 
-From the original entrypoint, run the entrypoint.
-
+From another terminal, run the entrypoint.
 ```
 python3 python/UXsim-test.py
 ```

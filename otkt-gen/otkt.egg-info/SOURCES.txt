@@ -1,4 +1,9 @@
+Makefile
+config.txt
 setup.py
+collector/pom.xml
+collector/src/main/java/CollectorConfiguration.java
+collector/src/main/java/Main.java
 otkt/__init__.py
 otkt.egg-info/PKG-INFO
 otkt.egg-info/SOURCES.txt
