@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: helloWorld
-Version: 1.0.0
-Summary: Dummy python module for instrumentation purposes
-Home-page: https://github.com/kieker-monitoring/OtktDSL
-Dynamic: home-page
-Dynamic: summary
