@@ -19,7 +19,8 @@ Kiel University, Kiel, Germany
 
 ## Replication
 
-The following wil walk you through the complete pipeline using the helloWorld application as an example.
+The following will walk you through the complete pipeline methodology. The data from the previous experiment is included with this package.
+You can skip the following and run the pipeline from these logs if necessary.
 Note: it is important to do the static analysis first, as to not skew the static analysis results with the added code for the dynamic analysis intrumentation.
 
 ### Static Analysis
@@ -27,8 +28,8 @@ Note: it is important to do the static analysis first, as to not skew the static
 From the root, run the static analyzer.
 ```
 time python3 tools/pyparse/src/pyparse/pyparse.py \
- -i hello/helloWorld \
- -o bin/static \
+ -i <app_dir> \
+ -o <static_out_dir> \
  -m both -e
 ```
 
@@ -41,13 +42,20 @@ make
 cd ..
 ```
 
-Instrument and install UXsim. 
+Instrument the target app. 
 ```
-cd UXsim
-../scripts/instrument.sh
-python3 -m build .
-pip install dist/uxsim*
-cd ..
+python3 <path/to/root>/tools/Otkt-Instrument/instrument -i <path/to/app>
+```
+
+Install the instrumented app. This process varies from app to app. The following should work in most cases.
+```
+pip install <path/to/app> --no-build-isolation --no-compile --use-feature=fast-deps
+```
+Or
+
+```
+python3 -m build <path/to/app>
+pip install <path/to/app>/dist/*.whl -v
 ```
 
 Launch the collector.
