@@ -19,10 +19,14 @@ Kiel University, Kiel, Germany
 
 ## Replication
 
-The following will walk you through the complete pipeline methodology. The data from the previous experiment is included with this package.
-You can skip the data collection and run the pipeline from these logs alone.
-Note: it is important to do the static analysis first, as to not skew the static analysis results with the added code for the dynamic analysis intrumentation.
+This section guides you through the full pipeline methodology.  
+All necessary data from the previous experiment is bundled with this package, so you can skip the data collection phase and run the pipeline directly using the provided logs.
 
+---
+
+> **Note:**
+> It is important to perform **static analysis first**.
+> Running dynamic instrumentation beforehand may introduce additional code that could skew the static analysis results.
 
 ## Recommended Development Environment
 
@@ -130,10 +134,9 @@ Run the pipeline script as follows:
 ```
 ./scripts/pipeline.sh <dynamic-logs> <static-logs> <analysis-name>
 ```
-
-- <dynamic-logs>: Path to dynamic analysis logs
-- <static-logs>: Path to static analysis logs
-- <analysis-name>: Custom name for the output directory
+- `<dynamic-logs>` : Path to dynamic analysis logs
+- `<static-logs>` : Path to static analysis logs
+- `<analysis-name>` : Custom name for the output directory
 
 Once complete, you can view the generated graph at:
 `<analysis-name>/mvis_combined/output.pdf`
