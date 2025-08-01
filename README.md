@@ -20,12 +20,68 @@ Kiel University, Kiel, Germany
 ## Replication
 
 The following will walk you through the complete pipeline methodology. The data from the previous experiment is included with this package.
-You can skip the following and run the pipeline from these logs if necessary.
+You can skip the data collection and run the pipeline from these logs alone.
 Note: it is important to do the static analysis first, as to not skew the static analysis results with the added code for the dynamic analysis intrumentation.
+
+
+## Recommended Development Environment
+
+To ensure consistency and avoid setup issues, **we strongly recommend using the provided virtual machine**.
+
+- The project has already been cloned to:  
+  `~/Desktop/PCARP`
+- All required dependencies and configurations are pre-installed.
+- VM password: `osboxes.org`
+
+You're ready to start working immediately—no additional setup required!
+
+## Prerequisites for Local Development
+
+If you choose to work from your own environment rather than a containerized or preconfigured setup, ensure the following tools and dependencies are installed:
+
+## Core Tools
+
+- **Git**
+- **Python 3.13**  
+  _Pro tip:_ Install via `ppa:deadsnakes` and configure it as an update-alternative alongside your system Python.
+- **Pip**
+- **Make**
+- **JDK 17+**
+- **Maven 3.9+**  
+  _Tested with Maven versions 3.9.9 and 3.9.11._
+- **Meson 0.63.3+**
+
+## Python Dependencies
+
+- Additional Python modules may be required depending on the application.  
+  _Please refer to each app’s `requirements.txt` or documentation for details._
+
+## Tulip Framework
+
+- The **Tulip framework** is required.  
+  _Pro tip:_ Since the `tulipgui` package has been discontinued, you’ll need to download a full Tulip build and unzip it. The GUI package is still bundled inside—just reference it via your `PYTHONPATH`.
+
+---
+
+> **Note:** This setup has been tested on **Ubuntu Jammy (22.04)**. Compatibility with other distributions may vary.
 
 ### Static Analysis
 
-From the root, run the static analyzer.
+If you're working from the provided virtual machine, please **switch to the system Python** for this step.
+
+The static analyzer includes an option to dynamically inspect installed dependencies. However, since **not all packages are yet compatible with Python 3.13**, it's recommended to:
+
+- **Temporarily switch to an earlier Python version** (e.g., Python 3.10), or  
+- **Avoid using the `-e` option** with the analyzer.
+
+To switch Python versions on Ubuntu:
+
+```
+sudo update-alternatives --config python3
+python3 --version  # Confirm the active version
+```
+
+Then From the root of the replication package, run the static analyzer.
 ```
 time python3 tools/pyparse/src/pyparse/pyparse.py \
  -i <app_dir> \
@@ -47,15 +103,10 @@ Instrument the target app.
 python3 <path/to/root>/tools/Otkt-Instrument/instrument -i <path/to/app>
 ```
 
-Install the instrumented app. This process varies from app to app. The following should work in most cases.
+Install the instrumented app. This process varies from app to app and touch ups may be required, hence the necessity to install these modules in development mode.
+The latter allows for the changes made in the source files to be reflected in the installed version.
 ```
-pip install <path/to/app> --no-build-isolation --no-compile --use-feature=fast-deps
-```
-Or
-
-```
-python3 -m build <path/to/app>
-pip install <path/to/app>/dist/*.whl -v
+pip install -e <path/to/app> --no-build-isolation --no-compile --use-feature=fast-deps
 ```
 
 Launch the collector.
@@ -70,10 +121,19 @@ python3 python/UXsim-test.py
 ```
 The collector can be stopped. Kieker logs have been created in `/tmp`.
 
-## Running the pipeline
+## Running the Pipeline
 
-Now, run the pipeline.
+To execute the pipeline, make sure you're using **Python 3.13**.  
+This is essential because the `ggvis` tool relies on **Tulip Framework v6**, which is compatible only with Python 3.13.
+
+Run the pipeline script as follows:
 ```
-./scripts/pipeline.sh /tmp/kieker* bin/static combined-helloWorld
+./scripts/pipeline.sh <dynamic-logs> <static-logs> <analysis-name>
 ```
 
+- <dynamic-logs>: Path to dynamic analysis logs
+- <static-logs>: Path to static analysis logs
+- <analysis-name>: Custom name for the output directory
+
+Once complete, you can view the generated graph at:
+`<analysis-name>/mvis_combined/output.pdf`
